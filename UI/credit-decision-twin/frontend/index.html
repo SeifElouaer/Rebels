@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreditTwin - Multimodal Credit Decision Memory</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+    <div id="root"></div>
+    
+    <!-- Load utilities first -->
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/api.js"></script>
+    
+    <!-- Load React context and components -->
+    <script type="text/babel" src="js/context/AppContext.js"></script>
+    <script type="text/babel" src="js/components/Header.js"></script>
+    <script type="text/babel" src="js/components/ResultsPanel.js"></script>
+    <script type="text/babel" src="js/components/ApplicationTab.js"></script>
+    <script type="text/babel" src="js/components/DatabaseTab.js"></script>
+    <script type="text/babel" src="js/components/ArchitectureTab.js"></script>
+    <script type="text/babel" src="js/App.js"></script>
+</body>
+</html>

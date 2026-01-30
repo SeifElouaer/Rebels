@@ -1,0 +1,85 @@
+// Main App Component
+
+function TabButton({ id, label, isActive, onClick }) {
+    return (
+        <button 
+            onClick={() => onClick(id)}
+            className={`tab-btn px-4 py-2 rounded-lg font-medium ${isActive ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`}
+        >
+            {label}
+        </button>
+    );
+}
+
+function Footer() {
+    return (
+        <footer className="border-t border-slate-800 mt-12 py-6">
+            <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+                <p>CreditTwin - Hackathon 2024 | Multimodal Similarity-Driven Risk & Anomaly Detection</p>
+                <p className="mt-1">Powered by Qdrant Vector Database + FastAPI + React</p>
+            </div>
+        </footer>
+    );
+}
+
+function App() {
+    const { activeTab, setActiveTab, apiStatus } = useAppContext();
+    
+    const tabs = [
+        { id: 'application', label: '📝 New Application' },
+        { id: 'database', label: '🗃️ Historical Database' },
+        { id: 'architecture', label: '🏗️ Architecture' }
+    ];
+    
+    return (
+        <div className="min-h-screen flex flex-col">
+            <Header />
+            
+            {apiStatus.api_status !== 'connected' && (
+                <div className="bg-red-500/20 border-b border-red-500/50 px-4 py-3">
+                    <div className="max-w-7xl mx-auto flex items-center gap-2 text-red-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <span className="font-medium">Backend Disconnected</span>
+                        <span className="text-sm">- Make sure the Python backend is running on http://localhost:8000</span>
+                    </div>
+                </div>
+            )}
+            
+            <main className="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+                {/* Tab Navigation */}
+                <div className="flex gap-2 mb-6 flex-wrap">
+                    {tabs.map(tab => (
+                        <TabButton 
+                            key={tab.id}
+                            id={tab.id}
+                            label={tab.label}
+                            isActive={activeTab === tab.id}
+                            onClick={setActiveTab}
+                        />
+                    ))}
+                </div>
+                
+                {/* Tab Panels */}
+                <div className="tab-panel">
+                    {activeTab === 'application' && <ApplicationTab />}
+                    {activeTab === 'database' && <DatabaseTab />}
+                    {activeTab === 'architecture' && <ArchitectureTab />}
+                </div>
+            </main>
+            
+            <Footer />
+        </div>
+    );
+}
+
+// Render the app
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <AppProvider>
+        <App />
+    </AppProvider>
+);
+
+console.log('CreditTwin React App initialized - connecting to backend at', API_BASE_URL);

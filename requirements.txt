@@ -1,0 +1,7 @@
+flask
+flask-cors
+pandas
+qdrant-client
+python-dotenv
+numpy
+google-generativeai

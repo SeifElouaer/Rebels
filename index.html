@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreditTwin | Financial Twin Decision Engine</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>CreditTwin</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-view="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-view="evaluate">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Evaluate</span>
+                </li>
+                <li data-view="history">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="welcome">
+                    <h1>Financial Twin Engine</h1>
+                    <p>Powered by Similarity Search & Real-world Outcomes</p>
+                </div>
+                <div class="system-status online" id="systemStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Engine Ready</span>
+                    <div id="llmStatus" class="llm-badge">
+                        <i class="fas fa-magic"></i> Gemini AI: <span id="llmStatusText">Checking...</span>
+                    </div>
+                    <div id="fraudAlert" class="fraud-badge hidden">
+                        <i class="fas fa-user-shield"></i> High Risk Detected
+                    </div>
+                </div>
+            </header>
+
+            <!-- View: Dashboard Stats -->
+            <section id="dashboardView" class="view active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Clients</h3>
+                            <p id="statTotalClients">...</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Applications</h3>
+                            <p id="statTotalApps">...</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info">
+                            <h3>Success Rate</h3>
+                            <p id="statSuccessRate">...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-visuals">
+                    <div class="chart-container glass">
+                        <h3>Outcome Distribution</h3>
+                        <div class="outcome-list" id="outcomeList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    <div class="info-card glass">
+                        <h3>How it works</h3>
+                        <p>Our engine uses **Twin Search** technology. To evaluate a loan, we find hundreds of
+                            historical "financial twins" with similar profiles and analyze their actual payment
+                            outcomes.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-microchip"></i> 50-Dimensional Embeddings</li>
+                            <li><i class="fas fa-shield-alt"></i> Anomaly Detection Guardrails</li>
+                            <li><i class="fas fa-bolt"></i> Real-time Decisioning</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: Evaluate Application -->
+            <section id="evaluateView" class="view">
+                <div class="evaluation-container">
+                    <div class="form-card glass">
+                        <h2>New Application</h2>
+                        <form id="evaluationForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Requested Amount ($)</label>
+                                    <input type="number" name="requested_amount" required placeholder="e.g. 15000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Annual Income ($)</label>
+                                    <input type="number" name="annual_income_snapshot" required
+                                        placeholder="e.g. 60000">
+                                </div>
+                                <div class="form-group">
+                                    <label>FICO Score</label>
+                                    <input type="number" name="fico_snapshot" required placeholder="600-850">
+                                </div>
+                                <div class="form-group">
+                                    <label>Monthly Debt ($)</label>
+                                    <input type="number" name="monthly_debt" required placeholder="e.g. 500">
+                                </div>
+                                <div class="form-group">
+                                    <label>Loan Purpose</label>
+                                    <select name="loan_purpose">
+                                        <option value="debt_consolidation">Debt Consolidation</option>
+                                        <option value="credit_card">Credit Card</option>
+                                        <option value="home_improvement">Home Improvement</option>
+                                        <option value="major_purchase">Major Purchase</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Term</label>
+                                    <select name="term">
+                                        <option value=" 36 months">36 Months</option>
+                                        <option value=" 60 months">60 Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-search-dollar"></i> Evaluate Application
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Result Panel (Hidden initially) -->
+                    <div id="resultPanel" class="result-card glass hidden">
+                        <div class="result-header">
+                            <div class="decision-badge" id="decisionBadge">...</div>
+                            <div class="confidence-container">
+                                <span>Confidence</span>
+                                <div class="confidence-bar">
+                                    <div class="fill" id="confidenceFill" style="width: 0%"></div>
+                                </div>
+                                <span id="confidenceValue">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="interpreter-section">
+                            <h3><i class="fas fa-comment-dots"></i> Engine Interpretation</h3>
+                            <p id="decisionReason" class="reason-text">...</p>
+
+                            <!-- Path to Success (Roadmap) -->
+                            <div id="roadmapBox" class="insight-box roadmap-box hidden">
+                                <h4><i class="fas fa-road"></i> Your Path to Success</h4>
+                                <p id="roadmapMessage"></p>
+                                <div class="roadmap-targets">
+                                    <div class="target-item">
+                                        <label>Target FICO</label>
+                                        <span id="targetFico">--</span>
+                                    </div>
+                                    <div class="target-item">
+                                        <label>Target DTI</label>
+                                        <span id="targetDti">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Alternative Offer (Up-Selling) -->
+                            <div id="offerBox" class="insight-box offer-box hidden">
+                                <h4><i class="fas fa-gift"></i> Recommended Alternative</h4>
+                                <p id="offerMessage"></p>
+                                <div class="offer-action">
+                                    <span id="offerAmount">$ --</span>
+                                    <button class="btn-small">Learn More</button>
+                                </div>
+                            </div>
+
+                            <!-- Smart Nudge (Marketing) -->
+                            <div id="nudgeBox" class="insight-box nudge-box hidden">
+                                <h4><i class="fas fa-lightbulb"></i> Pro-Tip for You</h4>
+                                <p id="nudgeMessage"></p>
+                            </div>
+
+                            <div id="conditionsBox" class="conditions-box hidden">
+                                <h4>Requirements:</h4>
+                                <ul id="conditionsList"></ul>
+                            </div>
+                        </div>
+
+                        <div class="twin-analysis-section">
+                            <h3><i class="fas fa-people-arrows"></i> Twin Analysis</h3>
+                            <div class="twin-stats-row">
+                                <div class="twin-stat">
+                                    <label>Twins Found</label>
+                                    <span id="twinCount">0</span>
+                                </div>
+                                <div class="twin-stat">
+                                    <label>Success Rate</label>
+                                    <span id="twinSuccessRate">0%</span>
+                                </div>
+                                <div class="twin-stat">
+                                    <label>Avg Similarity</label>
+                                    <span id="twinAvgSim">0%</span>
+                                </div>
+                            </div>
+
+                            <div class="top-twins">
+                                <h4>Top Matches</h4>
+                                <div id="topTwinsList" class="twins-mini-list">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: History (Placeholder for now) -->
+            <section id="historyView" class="view">
+                <div class="placeholder-content glass">
+                    <i class="fas fa-tools"></i>
+                    <h2>Audit Log coming soon</h2>
+                    <p>Temporal history and audit logs are currently available via the API.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

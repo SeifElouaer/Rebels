@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Data and DB
+*.csv
+*.db
+*.json
+data/
+db/
+qdrant_storage/
+Engine/loan_requests.json
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
